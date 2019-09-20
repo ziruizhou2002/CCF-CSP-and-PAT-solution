@@ -1,16 +1,15 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-	int N,num=1,current;
-	scanf("%d%d",&N,&current);
-	for(int i=1;i<N;++i){
-		int a;
-		scanf("%d",&a);
-		if(a!=current){
-			++num;
-			current=a;
-		}
-	}
-	printf("%d",num);
-	return 0;
+int main() {
+    int n, ans = 1, last, current;
+    cin >> n >> last;
+    for (int i = 1; i < n; ++i) {
+        cin >> current;
+        if (current != last) {
+            ++ans;
+            last = current;
+        }
+    }
+    cout << ans;
+    return 0;
 }
