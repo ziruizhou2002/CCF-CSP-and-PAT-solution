@@ -46,7 +46,7 @@ int main() {
                         break;
                 }
             }
-            for (auto& i : ans) {
+            for (auto& i : ans)
                 if (i.empty()) {
                     cout << "-1\n";
                 } else {
@@ -55,7 +55,6 @@ int main() {
                         cout << j << " ";
                     cout << "\n";
                 }
-            }
         }
     }
     return 0;
