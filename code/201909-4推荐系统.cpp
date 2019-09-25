@@ -50,7 +50,7 @@ int main() {
                 if (i.empty()) {
                     cout << "-1\n";
                 } else {
-                    sort(i.begin(), i.end());
+                    // sort(i.begin(), i.end());
                     for (auto j : i)
                         cout << j << " ";
                     cout << "\n";
