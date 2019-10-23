@@ -1,6 +1,8 @@
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 # CCF CSP和PAT顶级甲级乙级题解
 
+注：阅读本代码仓库，建议使用google浏览器并安装[Octotree](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc)插件，该插件可以像IDE一样对打开的Github代码仓库自动生成一个仓库目录树侧边栏，通过这个插件你可以很方便地打开这个仓库内的任何一个文件
+
 ## 仓库代码说明
 点击[谈一下两次CSP认证从180分到380分的感想](https://blog.csdn.net/richenyunqi/article/details/83388315)查看我参加两次csp认证的感想
 
