@@ -1,17 +1,19 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int A,B,D;
-    scanf("%d%d%d",&A,&B,&D);
-    A+=B;
-    if(A==0)
-        printf("0");
-    string result="";
-    while(A!=0){
-        result+=A%D+'0';
-        A/=D;
-    }
-    reverse(result.begin(),result.end());
-    printf("%s",result.c_str());
+vector<int> trans10toR(int i, int R) {
+    vector<int> ans;
+    do {
+        ans.push_back(i % R);
+        i /= R;
+    } while (i != 0);
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+int main() {
+    int a, b, d;
+    cin >> a >> b >> d;
+    auto r = trans10toR(a + b, d);
+    for (int i : r)
+        cout << i;
     return 0;
 }
