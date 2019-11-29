@@ -19,9 +19,11 @@ ps：如果您能点一下star，我就更荣幸了，哈哈O(∩_∩)O
  - 感谢[夜行少女](https://me.csdn.net/qq_37967797)对[CCF认证201812-3CIDR合并](https://blog.csdn.net/richenyunqi/article/details/86477396)代码的改进
  - 感谢[Highlight_Jin](https://me.csdn.net/Highlight_Jin)对[CCF认证201512-4送货（100分）](https://blog.csdn.net/richenyunqi/article/details/80382450)代码的改进
 
+ 
 ### bug提示
  - 感谢**张建勋**指出[CCF认证201612-1中间数](https://blog.csdn.net/richenyunqi/article/details/79640831)中存在的bug并提供相应的出现错误的测试数据
  - 感谢[星辰浩宇](https://me.csdn.net/amf12345)指出[CCF认证201803-3URL映射](https://blog.csdn.net/richenyunqi/article/details/85260248)中存在的bug并提供相应的出现错误的测试数据
+ - 感谢[chocolate-emperor](https://github.com/chocolate-emperor)对[CCF认证201512-2消除类游戏](https://github.com/richenyunqi/CCF-CSP-and-PAT-solution/blob/master/CCF%20CSP/201512-2.%20%E6%B6%88%E9%99%A4%E7%B1%BB%E6%B8%B8%E6%88%8F.cpp)代码错误的提醒
 
 ### 代码补充
  - 感谢[zhanyeye](https://github.com/zhanyeye)对`CCF认证201312-4有趣的数`题解代码的补充
