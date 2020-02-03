@@ -25,6 +25,7 @@ ps：如果您能点一下star，我就更荣幸了，哈哈O(∩_∩)O
  - 感谢[星辰浩宇](https://me.csdn.net/amf12345)指出[CCF认证201803-3URL映射](https://blog.csdn.net/richenyunqi/article/details/85260248)中存在的bug并提供相应的出现错误的测试数据
  - 感谢[chocolate-emperor](https://github.com/chocolate-emperor)对[CCF认证201512-2消除类游戏](https://github.com/richenyunqi/CCF-CSP-and-PAT-solution/blob/master/CCF%20CSP/201512-2.%20%E6%B6%88%E9%99%A4%E7%B1%BB%E6%B8%B8%E6%88%8F.cpp)代码错误的提醒
  - 感谢[田奕轩](https://me.csdn.net/qq_45057634)对[CCF认证20161202-工资计算](https://blog.csdn.net/richenyunqi/article/details/79642414)代码错误的提醒
+ - 感谢[徐嘉诚](https://github.com/xiaobanni)指出[CCF认证201403-4无线网络](https://blog.csdn.net/richenyunqi/article/details/87906639)中存在的bug并提供相应的出现错误的测试数据
 
 ### 代码补充
  - 感谢[zhanyeye](https://github.com/zhanyeye)对`CCF认证201312-4有趣的数`题解代码的补充
