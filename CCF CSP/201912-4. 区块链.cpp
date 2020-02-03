@@ -1,47 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>> graph(505);
-struct Block {
-    int num, count;  //块编号、以该结点为尾结点的链的长度
-    Block* father;  //父块
-    Block(int n, int c = 1, Block* f = nullptr) : num(n), count(c), father(f) {}
-};
-Block* root = new Block(0, 1);
-vector<Block*> chains(505, root);
-int n, m, t, k, order = 0;
-struct Action {
-    //结点编号num,操作op(op==0表示接收一条链,op==1表示产生一个块,op==2时表示进行查询),该操作对应的时刻time,命令编号order
-    // block当op==0时为传递的链的尾块指针,当op==1时表示要产生的块的指针,当op==2时为nullptr
-    int num, op, time, order;
-    Block* block;
-    Action(int n, int t, int oop, int ord, Block* b = nullptr) : num(n), time(t), op(oop), order(ord), block(b) {}
-    bool operator<(const Action& a) const {
-        if (this->time != a.time)
-            return this->time > a.time;
-        else if (this->op != a.op)
-            return this->op > a.op;
-        else
-            return this->order > a.order;
-    }
-};
-priority_queue<Action> actions;
-bool canAccept(Block* Old, Block* New) {
-    return Old->count < New->count or (Old->count == New->count and Old->num > New->num);
+vector<vector<int>> graph(505);  //存储节点的边关系
+vector<vector<int>> ans(505, {0});  //存储每个节点的主链
+int n, m, t, k;
+map<int, unordered_map<int, array<vector<int>, 2>>> actions;  //存储接收链和产生块操作
+bool canAccept(const vector<int>& Old, const vector<int>& New) {  //其他节点传递过来的新链New能否被接受
+    return Old.size() != New.size() ? Old.size() < New.size() : Old.back() > New.back();
 }
-void diffuse(int v, int time) {
+void diffuse(int v, int time) {  //将节点v的主链广播出去
     for (int i : graph[v]) {
-        if (canAccept(chains[i], chains[v])) {
-            actions.push(Action(i, time + t, 0, ++order, chains[v]));
+        auto& chain = actions[time][i][0];
+        if ((chain.empty() and canAccept(ans[i], ans[v])) or (not chain.empty() and canAccept(chain, ans[v])))
+            chain = ans[v];
+    }
+}
+void query(int a, int b) {  //查询a节点在b时刻的主链
+    for (auto& action : actions) {  //遍历所有接收链和产生块操作
+        int curTime = action.first;
+        if (curTime > b)  //当前操作时刻>b，结束循环
+            break;
+        for (auto& vertex : action.second) {
+            int v = vertex.first;  //获取该操作节点编号
+            auto &chain = vertex.second[0], &blocks = vertex.second[1];  //要接收的链、要产生的块
+            bool canDiffuse = canAccept(ans[v], chain) or not blocks.empty();  //节点v是否要向外广播主链
+            if (canAccept(ans[v], chain))  //先接收其他节点的主链
+                ans[v] = chain;
+            for (int b : blocks)  //再产生块
+                ans[v].push_back(b);
+            if (canDiffuse)  //向外广播
+                diffuse(v, curTime + t);
         }
     }
-}
-void outputChain(Block* b) {
-    if (not b)
-        return;
-    outputChain(b->father);
-    cout << " " << b->num;
+    actions.erase(actions.begin(), actions.upper_bound(b));  //删除b时刻及其以前的所有操作，避免重复处理
+    cout << ans[a].size();
+    for (int i : ans[a])
+        cout << " " << i;
+    cout << "\n";
 }
 int main() {
+    ios::sync_with_stdio(false);
     cin >> n >> m;
     for (int i = 0; i < m; ++i) {
         int a, b;
@@ -50,38 +47,14 @@ int main() {
         graph[b].push_back(a);
     }
     cin >> t >> k;
-    getchar();
-    for (int ii = 0; ii < k; ++ii) {
-        string line;
-        getline(cin, line);
-        vector<int> a;
-        for (int i = 0, j = 0; i < line.size(); i = j + 1) {
-            j = line.find(' ', i);
-            if (j == string::npos)
-                j = line.size();
-            a.push_back(stoi(line.substr(i, j - i)));
-        }
-        if (a.size() == 2) {
-            actions.push(Action(a[0], a[1], 2, ++order));
+    for (int i = 0; i < k; ++i) {
+        int a, b, c;
+        cin >> a >> b;
+        if (cin.get() == '\n' or cin.eof()) {
+            query(a, b);
         } else {
-            actions.push(Action(a[0], a[1], 1, ++order, new Block(a[2])));
-        }
-    }
-    while (not actions.empty()) {
-        auto a = actions.top();
-        actions.pop();
-        if (a.op == 0 and canAccept(chains[a.num], a.block)) {  //接收一条链
-            chains[a.num] = a.block;
-            diffuse(a.num, a.time);
-        } else if (a.op == 1) {  //产生一个块
-            a.block->count = chains[a.num]->count + 1;
-            a.block->father = chains[a.num];
-            chains[a.num] = a.block;
-            diffuse(a.num, a.time);
-        } else if (a.op == 2) {  //查询
-            cout << chains[a.num]->count;
-            outputChain(chains[a.num]);
-            cout << "\n";
+            cin >> c;
+            actions[b][a][1].push_back(c);
         }
     }
     return 0;
