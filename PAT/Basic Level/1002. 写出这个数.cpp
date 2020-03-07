@@ -1,16 +1,13 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
+int main() {
     string s;
-    cin>>s;
-    int sum=0;
-    for(int i=0;i<s.size();++i)
-        sum+=s[i]-'0';
-    s=to_string(sum);
-    string temp[10]={
-        "ling","yi","er","san","si","wu","liu","qi","ba","jiu"
-    };
-    for(int i=0;i<s.size();++i)
-        printf("%s%s",i>0?" ":"",temp[s[i]-'0'].c_str());
+    cin >> s;
+    int sum = accumulate(s.begin(), s.end(), 0, [](int a, char c) { return a + c - '0'; });
+    s = to_string(sum);
+    array<string, 10> p{"ling", "yi", "er", "san", "si", "wu", "liu", "qi", "ba", "jiu"};
+    for (int i = 0; i < s.size(); ++i) {
+        cout << (i > 0 ? " " : "") << p[s[i] - '0'];
+    }
     return 0;
 }
