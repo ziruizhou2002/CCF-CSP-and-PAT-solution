@@ -1,15 +1,15 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    string input;
-    cin>>input;
-    for(int i=0;i<input.size();++i)
-        for(int ii=0;ii<input[i]-'0';++ii)
-            if(i==input.size()-3)
-                printf("B");
-            else if(i==input.size()-2)
-                printf("S");
-            else if(i==input.size()-1)
-                printf("%d",ii+1);
+int main() {
+    string n;
+    cin >> n;
+    int s = n.size();  // s为字符串长度
+    for (int i = 0; i < s; ++i) {
+        // j不仅负责计数，还负责遍历从'1'到n[i]之间的字符
+        for (char j = '1'; j <= n[i]; ++j) {
+            // i为j-3说明是百位，i为j-2说明是十位，否则是个位
+            cout << (i == s - 3 ? 'B' : i == s - 2 ? 'S' : j);
+        }
+    }
     return 0;
 }
