@@ -9,7 +9,7 @@ struct Student {
 int main() {
     gg n;
     cin >> n;
-    Student Max(-1), Min(101), temp;
+    Student Max(-1), Min(101), temp;  // Max初始成绩为-1，Min初试成绩为101
     for (gg i = 0; i < n; ++i) {
         cin >> temp.name >> temp.number >> temp.score;
         if (Max.score < temp.score)
