@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
-using LL = long long;  //类型别名
+using gg = long long;  //类型别名
 int main() {
     //键为坐标，值对应该坐标上下左右四个邻居位置存在垃圾的个数和四个对角位置中存在垃圾的个数
-    map<array<LL, 2>, array<LL, 2>> m;
-    LL n;
-    array<LL, 2> p;
+    map<array<gg, 2>, array<gg, 2>> m;
+    gg n;
+    array<gg, 2> p;
     cin >> n;
     while (n--) {
         cin >> p[0] >> p[1];
@@ -22,7 +22,7 @@ int main() {
             }
         }
     }
-    array<LL, 5> ans{};  //存储最终结果
+    array<gg, 5> ans{};  //存储最终结果
     for (auto& i : m)
         if (i.second[0] == 4)  //当前坐标可以作为选址
             ++ans[i.second[1]];  //递增其得分下的选址个数
