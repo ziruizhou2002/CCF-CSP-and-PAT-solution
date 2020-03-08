@@ -1,12 +1,12 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int T;
-    scanf("%d",&T);
-    long long a,b,c;
-    for(int i=1;i<=T;++i){
-        scanf("%lld%lld%lld",&a,&b,&c);
-        printf("Case #%d: %s\n",i,a+b>c?"true":"false");
+using gg = long long;
+int main() {
+    gg t, a, b, c;
+    cin >> t;
+    for (gg i = 1; i <= t; ++i) {
+        cin >> a >> b >> c;
+        cout << "Case #" << i << ": " << (a + b > c ? "true" : "false") << "\n";
     }
     return 0;
 }
