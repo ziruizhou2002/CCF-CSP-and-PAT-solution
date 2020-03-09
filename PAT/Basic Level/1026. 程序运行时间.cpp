@@ -1,9 +1,10 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int c1,c2;
-    scanf("%d%d",&c1,&c2);
-    c2=(int)round((c2-c1)/100.0);//c2、c1两者作差化成秒并四舍五入（可以调用标准库中的round函数）
-    printf("%02d:%02d:%02d",c2/3600,c2/60%60,c2%60);//输出需保证时分秒均为2位
+using gg = long long;
+int main() {
+    gg a, b;
+    cin >> a >> b;
+    a = (gg)round((b - a) / 100.0);
+    printf("%02lld:%02lld:%02lld", a / 3600, a / 60 % 60, a % 60);
     return 0;
 }
