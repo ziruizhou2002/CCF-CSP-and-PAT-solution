@@ -1,43 +1,46 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int cmp(char a,char b){//得出甲乙谁胜谁负，甲胜返回1，乙胜返回-1，平局返回0
-    if(a==b)
-        return 0;
-    else if((a=='B'&&b=='C')||(a=='C'&&b=='J')||(a=='J'&&b=='B'))
-        return 1;
-    else
-        return -1;
+using gg = long long;
+inline gg compare(char c1, char c2) {  //得出甲乙谁胜谁负，甲胜返回1，乙胜返回-1，平局返回0
+    return c1 == c2 ?
+               0 :
+               (c1 == 'J' and c2 == 'B') or (c1 == 'B' and c2 == 'C') or (c1 == 'C' and c2 == 'J') ?
+               1 :
+               -1;
 }
-char maxSheng(map<char,int>&sheng){//获取获胜最多的手势
-    char maxChar='B';
-    for(auto i=sheng.cbegin();i!=sheng.cend();++i)
-        if(i->second>sheng[maxChar])
-            maxChar=i->first;
-    return maxChar;
-}
-int main(){
-    int N;
-    scanf("%d",&N);
-    map<char,int>Asheng,Bsheng;//记录甲乙获胜的各手势次数
-    int A[3]={0};//记录甲的胜平负次数
-    for(int i=0;i<N;++i){
-        char a,b;
-        scanf("\n%c %c",&a,&b);
-        int temp=cmp(a,b);
-        if(temp==1){
-            ++A[0];
-            ++Asheng[a];
-        }else if(temp==-1){
-            ++A[2];
-            ++Bsheng[b];
-        }else
-            ++A[1];
+char maxWin(map<char, gg>& m) {  //获取获胜最多的手势
+    char c = 'B';
+    for (auto& i : m) {
+        if (i.second > m[c])
+            c = i.first;
     }
-    for(int i=0;i<3;++i)
-        printf("%s%d",i>0?" ":"",A[i]);
-    printf("\n");
-    for(int i=2;i>=0;--i)
-        printf("%s%d",i<2?" ":"",A[i]);
-    printf("\n%c %c",maxSheng(Asheng),maxSheng(Bsheng));
+    return c;
+}
+int main() {
+    array<gg, 3> ans{};  //记录甲的胜平负次数
+    array<map<char, gg>, 2> win{};  //记录甲乙获胜的各手势次数
+    gg n;
+    cin >> n;
+    while (n--) {
+        char c1, c2;
+        cin >> c1 >> c2;
+        gg c = compare(c1, c2);
+        if (c == 1) {
+            ++ans[0];
+            ++win[0][c1];
+        } else if (c == -1) {
+            ++ans[2];
+            ++win[1][c2];
+        } else {
+            ++ans[1];
+        }
+    }
+    for (auto i = ans.begin(); i != ans.end(); ++i) {  //正序输出，表示甲的胜平负次数
+        cout << *i << (i == ans.end() - 1 ? "\n" : " ");
+    }
+    for (auto i = ans.rbegin(); i != ans.rend(); ++i) {  //倒序输出，表示乙的胜平负次数
+        cout << *i << (i == ans.rend() - 1 ? "\n" : " ");
+    }
+    cout << maxWin(win[0]) << " " << maxWin(win[1]);
     return 0;
 }

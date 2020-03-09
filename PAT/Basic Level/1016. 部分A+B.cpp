@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
+using gg = long long;
 int main() {
     string A, B;
-    int Da, Db, a = 0, b = 0;
+    gg Da, Db, a = 0, b = 0;
     cin >> A >> Da >> B >> Db;
     for (auto c : A)
         if (c - '0' == Da)
@@ -10,6 +11,6 @@ int main() {
     for (auto c : B)
         if (c - '0' == Db)
             b = b * 10 + Db;
-    printf("%d", a + b);
+    printf("%lld", a + b);
     return 0;
 }
