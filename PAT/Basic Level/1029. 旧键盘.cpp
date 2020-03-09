@@ -1,15 +1,16 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    string s1,s2;
-    cin>>s1>>s2;
-    bool hashTable[128]={false};
-    for(char c:s2)
-        hashTable[toupper(c)]=true;
-    for(int i=0;i<s1.size();++i)
-        if(!hashTable[toupper(s1[i])]){
-            printf("%c",toupper(s1[i]));
-            hashTable[toupper(s1[i])]=true;
+int main() {
+    string s1, s2;
+    cin >> s1 >> s2;
+    bitset<128> h;  //哈希表
+    for (char c : s2)
+        h[toupper(c)] = true;
+    for (char c : s1) {
+        if (not h[toupper(c)]) {
+            cout << (char)toupper(c);
+            h[toupper(c)] = true;  //保证坏掉的键只输出一次
         }
+    }
     return 0;
 }
