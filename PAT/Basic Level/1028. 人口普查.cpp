@@ -1,33 +1,29 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct Person{
-    char name[6];
-    int year,month,day;
-    Person(int y,int m,int d):year(y),month(m),day(d){}
-    bool operator <(const Person&person)const{//按照出生日期大小定义<运算符
-        if(this->year!=person.year)
-            return this->year<person.year;
-        else if(this->month!=person.month)
-            return this->month<person.month;
-        else
-            return this->day<person.day;
-    }
+using gg = long long;
+struct Person {
+    string name;
+    gg y, m, d;
+    Person(gg yy, gg mm, gg dd, string n = "") : y(yy), m(mm), d(dd), name(n) {}
+    //重载小于运算符
+    bool operator<(const Person& p) const { return tie(y, m, d) < tie(p.y, p.m, p.d); }
 };
-//定义出生日期的下限和上限和临时变量、最年长和最年轻的人
-Person minPerson(1814,9,5),maxPerson(2014,9,7),temp(0,0,0),Max(1814,9,5),Min(2014,9,7);
-int main(){
-    int N,size=0;//size统计有效生日的个数的变量
-    scanf("%d",&N);
-    while(N--){
-        scanf("%s %d/%d/%d",temp.name,&temp.year,&temp.month,&temp.day);
-        if(temp<maxPerson&&minPerson<temp){//如果是有效生日，将size加1
-            ++size;
-            Min=min(Min,temp);
-            Max=max(Max,temp);
-        }
+int main() {
+    gg n, num = 0;
+    cin >> n;
+    Person old(2014, 9, 6), young(1814, 9, 6), b1 = old, b2 = young, t(0, 0, 0);
+    while (n--) {
+        char c;
+        cin >> t.name >> t.y >> c >> t.m >> c >> t.d;
+        if (b1 < t or t < b2)  //注意这里不能使用>，因为我们没有重载>运算符
+            continue;
+        old = min(old, t);
+        young = max(young, t);
+        ++num;
     }
-    printf("%d",size);
-    if(size>0)//对size==0的情况不予输出名字
-        printf(" %s %s",Min.name,Max.name);
+    if (num == 0)  //有效生日为0，进行特判
+        cout << "0";
+    else
+        cout << num << ' ' << old.name << ' ' << young.name;
     return 0;
 }
