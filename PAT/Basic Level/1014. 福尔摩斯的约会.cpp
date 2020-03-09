@@ -1,30 +1,31 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    unordered_map<char,string>week={//ABCDEFG七个字符到星期的映射
-        {'A',"MON"},{'B',"TUE"},{'C',"WED"},{'D',"THU"},
-        {'E',"FRI"},{'F',"SAT"},{'G',"SUN"}
-    };
-    unordered_map<char,int>hour;
-    for(int i=0;i<24;++i)
-        hour.insert({i<10?i+'0':i-10+'A',i});
-    string input[4];
-    for(int i=0;i<4;++i)
-        getline(cin,input[i]);
-    int cnt=0;
-    for(int i=0;input[0][i]!='\0'&&input[1][i]!='\0';++i)
-        if(input[0][i]==input[1][i])
-            if(week.find(input[0][i])!=week.cend()&&cnt==0){
-                cout<<week[input[0][i]]<<" ";
-                ++cnt;
-            }else if(hour.find(input[0][i])!=hour.cend()&&cnt==1){
-                printf("%02d:",hour[input[0][i]]);
-                ++cnt;
-            }
-    for(int i=0;input[2][i]!='\0';++i)
-        if(isalpha(input[2][i])&&input[2][i]==input[3][i]){
-            printf("%02d",i);
+using gg = long long;
+int main() {
+    // ABCDEFG七个字符到星期的映射
+    unordered_map<char, string> week = {{'A', "MON"}, {'B', "TUE"}, {'C', "WED"}, {'D', "THU"},
+                                        {'E', "FRI"}, {'F', "SAT"}, {'G', "SUN"}};
+    // 0~9、A~N到小时的映射
+    unordered_map<char, gg> hour;
+    for (gg i = 0; i < 24; ++i)
+        hour.insert({i < 10 ? i + '0' : i - 10 + 'A', i});
+    string s1, s2;
+    cin >> s1 >> s2;
+    for (gg i = 0, c = 0; i < min(s1.size(), s2.size()); ++i) {
+        if (s1[i] == s2[i] and c == 0 and week.count(s1[i])) {
+            cout << week[s1[i]] << " ";
+            ++c;
+        } else if (s1[i] == s2[i] and c == 1 and hour.count(s1[i])) {
+            printf("%02lld:", hour[s1[i]]);
+            ++c;
+        }
+    }
+    cin >> s1 >> s2;
+    for (gg i = 0, c = 0; i < min(s1.size(), s2.size()); ++i) {
+        if (s1[i] == s2[i] and isalpha(s1[i])) {
+            printf("%02lld", i);
             break;
         }
+    }
     return 0;
 }

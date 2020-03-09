@@ -1,37 +1,37 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    scanf("%d",&N);
-    int a[6]={0},t[6]={0};//a为储存a1-a5的数组，t为记录符合条件的数的个数的数组
-    int t2=1;//辅助帮助计算a2交替求和的临时变量
-    for(int i=0;i<N;++i){
-        int temp;
-        scanf("%d",&temp);
-        if(temp%5==0&&temp%2==0){
-            a[1]+=temp;
-            ++t[1];
-        }else if(temp%5==1){
-            a[2]+=t2*temp;
-            t2=-t2;
-            ++t[2];
-        }else if(temp%5==2){
-            ++a[3];
-            ++t[3];
-        }else if(temp%5==3){
-            a[4]+=temp;
-            ++t[4];
-        }else if(temp%5==4&&temp>a[5]){
-            a[5]=temp;
-            ++t[5];
+using gg = long long;
+int main() {
+    gg n, t, help = 1;
+    cin >> n;
+    gg ans[5]{}, num[5]{};  // ans记录A[1]~A[5]，num记录数字出现次数
+    while (n--) {
+        cin >> t;
+        if (t % 10 == 0) {  // A[1]
+            ans[0] += t;
+            ++num[0];
+        } else if (t % 5 == 1) {  // A[2]
+            ans[1] += help * t;
+            help *= -1;
+            ++num[1];
+        } else if (t % 5 == 2) {  // A[3]
+            ++ans[2];
+            ++num[2];
+        } else if (t % 5 == 3) {  // A[4]
+            ans[3] += t;
+            ++num[3];
+        } else if (t % 5 == 4 and t > ans[4]) {  // A[5]
+            ans[4] = t;
+            ++num[4];
         }
     }
-    for(int i=1;i<6;++i){
-        printf("%s",i>1?" ":"");
-        if(t[i]>0)//printf("%.*f",max,i)表示输出有max位小数的i
-            printf("%.*f",i!=4?0:1,i!=4?(double)a[i]:(double)a[i]/t[i]);
-        else
-            printf("N");
+    for (int i = 0; i < 5; ++i) {
+        cout << (i == 0 ? "" : " ");  //输出数字前的空格
+        if (num[i] == 0) {  //该类数字不存在
+            cout << 'N';
+        } else {
+            printf("%.*f", (i == 3 ? 1 : 0), (i == 3 ? ans[i] * 1.0 / num[i] : ans[i] * 1.0));
+        }
     }
     return 0;
 }
