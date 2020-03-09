@@ -1,18 +1,16 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int school[100005]={0};
-    int N;
-    scanf("%d",&N);
-    while(N--){
-        int a,b;
-        scanf("%d%d",&a,&b);
-        school[a]+=b;
+using gg = long long;
+int main() {
+    array<gg, (gg)1e5 + 5> h{};
+    gg n;
+    cin >> n;
+    while (n--) {
+        gg a, b;
+        cin >> a >> b;
+        h[a] += b;
     }
-    int maxIndex=0;
-    for(int i=1;i<100005;++i)
-        if(school[i]>school[maxIndex])
-            maxIndex=i;
-    printf("%d %d",maxIndex,school[maxIndex]);
+    auto i = max_element(h.begin(), h.end());
+    cout << (i - h.begin()) << ' ' << *i;
     return 0;
 }
