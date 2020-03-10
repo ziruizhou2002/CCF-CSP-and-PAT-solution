@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     gg a, b;
     cin >> a >> b;
     a = (gg)round((b - a) / 100.0);

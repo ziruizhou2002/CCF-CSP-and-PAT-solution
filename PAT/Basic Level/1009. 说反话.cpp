@@ -2,6 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+    ios::sync_with_stdio(false);
     string s;
     stack<string> st;
     while (cin >> s) {
@@ -18,6 +19,7 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+    ios::sync_with_stdio(false);
     string s;
     vector<string> v;
     while (cin >> s) {

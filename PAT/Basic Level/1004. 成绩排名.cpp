@@ -7,6 +7,7 @@ struct Student {
     Student(gg s = 0) : score(s) {}
 };
 int main() {
+    ios::sync_with_stdio(false);
     gg n;
     cin >> n;
     Student Max(-1), Min(101), temp;  // Max初始成绩为-1，Min初试成绩为101

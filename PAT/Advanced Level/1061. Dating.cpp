@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     // ABCDEFG七个字符到星期的映射
     unordered_map<char, string> week = {{'A', "MON"}, {'B', "TUE"}, {'C', "WED"}, {'D', "THU"},
                                         {'E', "FRI"}, {'F', "SAT"}, {'G', "SUN"}};

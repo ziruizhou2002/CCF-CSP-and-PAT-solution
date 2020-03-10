@@ -9,6 +9,7 @@ struct Person {
     bool operator<(const Person& p) const { return tie(y, m, d) < tie(p.y, p.m, p.d); }
 };
 int main() {
+    ios::sync_with_stdio(false);
     gg n, num = 0;
     cin >> n;
     Person old(2014, 9, 6), young(1814, 9, 6), b1 = old, b2 = young, t(0, 0, 0);

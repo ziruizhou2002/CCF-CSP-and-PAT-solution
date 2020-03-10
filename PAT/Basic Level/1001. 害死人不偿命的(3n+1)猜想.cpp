@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     gg n, ans = 0;
     cin >> n;
     for (; n != 1; ++ans) {

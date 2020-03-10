@@ -17,6 +17,7 @@ char maxWin(map<char, gg>& m) {  //获取获胜最多的手势
     return c;
 }
 int main() {
+    ios::sync_with_stdio(false);
     array<gg, 3> ans{};  //记录甲的胜平负次数
     array<map<char, gg>, 2> win{};  //记录甲乙获胜的各手势次数
     gg n;

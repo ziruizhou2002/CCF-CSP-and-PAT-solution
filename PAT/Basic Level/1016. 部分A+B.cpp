@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     string A, B;
     gg Da, Db, a = 0, b = 0;
     cin >> A >> Da >> B >> Db;

@@ -6,6 +6,7 @@ struct Student {
     Student(gg i, gg d, gg c, gg le) : id(i), de(d), cai(c), level(le) { total = de + cai; }
 };
 int main() {
+    ios::sync_with_stdio(false);
     vector<Student> students;
     gg n, l, h, id, de, cai, level;
     cin >> n >> l >> h;

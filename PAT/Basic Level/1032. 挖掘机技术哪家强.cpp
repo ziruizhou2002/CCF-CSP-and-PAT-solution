@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     array<gg, (gg)1e5 + 5> h{};
     gg n;
     cin >> n;

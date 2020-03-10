@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;
 int main() {
+    ios::sync_with_stdio(false);
     array<gg, 10> h{};
     string s;
     cin >> s;

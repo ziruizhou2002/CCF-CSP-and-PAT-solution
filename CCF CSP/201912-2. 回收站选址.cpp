@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;  //类型别名
 int main() {
+    ios::sync_with_stdio(false);
     //键为坐标，值对应该坐标上下左右四个邻居位置存在垃圾的个数和四个对角位置中存在垃圾的个数
     map<array<gg, 2>, array<gg, 2>> m;
     gg n;

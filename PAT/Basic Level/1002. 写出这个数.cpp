@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+    ios::sync_with_stdio(false);
     string s;
     cin >> s;
     int sum = accumulate(s.begin(), s.end(), 0, [](int a, char c) { return a + c - '0'; });

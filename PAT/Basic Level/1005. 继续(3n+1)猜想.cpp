@@ -2,6 +2,7 @@
 using namespace std;
 using gg = long long;  //类型别名
 int main() {
+    ios::sync_with_stdio(false);
     gg n, a;
     unordered_set<gg> us;  //存储被覆盖的数
     cin >> n;
