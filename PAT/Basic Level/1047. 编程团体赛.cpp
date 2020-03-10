@@ -1,15 +1,17 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int n;
-    scanf("%d",&n);
-    int teamScore[1005]={0};
-    while(n--){
-        int a,b,c;
-        scanf("%d-%d %d",&a,&b,&c);
-        teamScore[a]+=c;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    gg n, k, s;
+    cin >> n;
+    array<gg, 1005> h{};
+    while (n--) {
+        char c;
+        cin >> k >> c >> s >> s;
+        h[k] += s;
     }
-    int maxIndex=max_element(teamScore,teamScore+1005)-teamScore;
-    printf("%d %d",maxIndex,teamScore[maxIndex]);
+    auto i = max_element(h.begin(), h.end());
+    cout << (i - h.begin()) << ' ' << *i;
     return 0;
 }
