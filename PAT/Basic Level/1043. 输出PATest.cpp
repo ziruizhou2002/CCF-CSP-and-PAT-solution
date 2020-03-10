@@ -1,19 +1,26 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    string input="",s="PATest";//s负责将数组下标映射到PATest这6个字符
-    getline(cin,input);
-    unordered_map<char,int>m;//记录字符及其出现次数
-    for(char c:input)//统计字符出现的次数
-        ++m[c];
-    bool f=true;//跳出循环的标志
-    while(f){//不断遍历输出
-        f=false;
-        for(int i=0;i<6;++i)
-            if(m[s[i]]-->0){//如果有元素不为0
-                printf("%c",s[i]);//输出一次对应字符
-                f=true;//有元素不为0置f为true，表示不允许跳出循环
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    string s, out = "PATest";
+    unordered_map<char, gg> um;  //记录字符及其出现次数
+    cin >> s;
+    for (char c : s) {  //统计字符出现的次数
+        if (out.find(c) != -1) {  // out中包含字符c
+            ++um[c];
+        }
+    }
+    while (not um.empty()) {
+        for (char c : out) {
+            if (um.count(c)) {  // um关键字中有该字符
+                cout << c;
+                //每输出一个字符就在um中将该字符个数减1，如果字符个数为0，就将该元素从um中删除
+                if (--um[c] == 0) {
+                    um.erase(c);
+                }
             }
+        }
     }
     return 0;
 }

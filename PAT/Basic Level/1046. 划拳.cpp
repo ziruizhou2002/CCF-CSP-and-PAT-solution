@@ -1,17 +1,19 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int n,sumA=0,sumB=0;
-    scanf("%d",&n);
-    int a1,a2,b1,b2;
-    while(n--){
-        scanf("%d%d%d%d",&a1,&a2,&b1,&b2);
-        int temp=a1+b1;
-        if(a2==temp&&b2!=temp)
-            ++sumB;
-        else if(a2!=temp&&b2==temp)
-            ++sumA;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    gg n, ans1 = 0, ans2 = 0;
+    cin >> n;
+    while (n--) {
+        gg a1, a2, b1, b2;
+        cin >> a1 >> a2 >> b1 >> b2;
+        if (a2 == a1 + b1 and b2 != a1 + b1) {
+            ++ans2;
+        } else if (a2 != a1 + b1 and b2 == a1 + b1) {
+            ++ans1;
+        }
     }
-    printf("%d %d",sumA,sumB);
+    cout << ans1 << ' ' << ans2;
     return 0;
 }
