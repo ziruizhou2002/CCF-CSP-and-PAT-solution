@@ -1,30 +1,35 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    vector<vector<string>>emotion;//存储表情符号
-    for(int i=0;i<3;++i){
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    array<vector<string>, 3> e{};  //存储表情符号
+    for (auto& v : e) {
         string line;
-        getline(cin,line);//读取一行字符串
-        vector<string>temp;//存储这一行字符串的表情符号
-        for(int j=0;j<line.size();++j)
-            if(line[j]=='[')//遇到'['字符
-                for(int k=j+1;k<line.size();++k)//查找']'字符并将'['字符和']'字符之间的字符串存储到temp中
-                    if(line[k] == ']') {
-                        temp.push_back(line.substr(j+1, k-j-1));
-                        break;
-                    }
-        emotion.push_back(temp);//将当前行的表情符号存储到emotion中
+        getline(cin, line);  //读取一行字符串
+        // i负责查找'['的下标，j负责查找']'的下标
+        for (auto i = line.find('['); i != -1;) {
+            auto j = line.find(']', i);
+            v.push_back(line.substr(i + 1, j - i - 1));
+            i = line.find('[', j);
+        }
     }
-    int N;
-    cin>>N;
-    while(N--){
-        int a,b,c,d,e;
-        cin>>a>>b>>c>>d>>e;
-        //如果输入的下标不在[1,emotion[i].size()]范围内
-        if(a>emotion[0].size()||b>emotion[1].size()||c>emotion[2].size()||d>emotion[1].size()||e>emotion[0].size()||a<1||b<1||c<1||d<1||e<1)
-            cout<<"Are you kidding me? @\\/@"<<endl;//下标不合法，输出相应字符串
-        else//否则输出表情
-            cout<<emotion[0][a-1]<<"("<<emotion[1][b-1]<<emotion[2][c-1]<<emotion[1][d-1]<<")"<<emotion[0][e-1]<<endl;
+    gg k, a;
+    cin >> k;
+    while (k--) {
+        string out;  //存储要输出的表情字符串
+        bool f = true;  //表示下标是否存在非法情况
+        for (auto i = 0; i < 5; ++i) {
+            cin >> a;
+            // v负责获取a是手眼口中哪个表情数组的下标
+            const auto& v = i == 2 ? e[2] : (i == 0 or i == 4) ? e[0] : e[1];
+            if (a - 1 >= v.size()) {  //下标非法
+                f = false;
+            } else {
+                out += v[a - 1] + (i == 0 ? "(" : i == 3 ? ")" : "");
+            }
+        }
+        f ? cout << out << '\n' : cout << "Are you kidding me? @\\/@\n";
     }
     return 0;
 }
