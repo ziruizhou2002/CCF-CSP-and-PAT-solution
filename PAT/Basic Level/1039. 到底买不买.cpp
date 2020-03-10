@@ -1,22 +1,20 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int hashTable[128]={0};
-    string s1,s2;
-    cin>>s1>>s2;
-    for(int i=0;i<s1.size();++i)
-        ++hashTable[s1[i]];
-    for(int i=0;i<s2.size();++i)
-        --hashTable[s2[i]];
-    int duo=0,shao=0;
-    for(int i=0;i<128;++i)
-        if(hashTable[i]>0)
-            duo+=hashTable[i];
-        else if(hashTable[i]<0)
-            shao-=hashTable[i];
-    if(shao==0)
-        printf("Yes %d",duo);
-    else
-        printf("No %d",shao);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    string s1, s2;
+    getline(cin, s1);
+    getline(cin, s2);
+    array<gg, 128> h{};
+    for (char c : s1)
+        ++h[c];
+    for (char c : s2)
+        --h[c];
+    gg k1 = 0, k2 = 0;  // k1记录多余的珠子数，k2记录少的珠子数
+    for (int i : h) {
+        i > 0 ? k1 += i : k2 -= i;
+    }
+    k2 > 0 ? cout << "No " << k2 : cout << "Yes " << k1;
     return 0;
 }
