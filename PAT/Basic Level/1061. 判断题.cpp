@@ -1,22 +1,24 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+using gg = long long;
 int main() {
-    int N,M;
-    scanf("%d%d",&N,&M);
-    int A[M],B[M];
-    for(int i=0;i<M;++i)
-        scanf("%d",&A[i]);
-    for(int i=0;i<M;++i)
-        scanf("%d",&B[i]);
-    for(int i=0;i<N;++i){
-        int score=0;
-        for(int j=0;j<M;++j){
-            int k;
-            scanf("%d",&k);
-            if(k==B[j])
-                score+=A[j];
+    ios::sync_with_stdio(false);
+    gg n, m;
+    cin >> n >> m;
+    vector<array<gg, 2>> problems(m);
+    for (auto i = 0; i < m; ++i)
+        cin >> problems[i][0];
+    for (auto i = 0; i < m; ++i)
+        cin >> problems[i][1];
+    while (n--) {
+        gg s = 0, a;
+        for (int i = 0; i < m; ++i) {
+            cin >> a;
+            if (a == problems[i][1]) {
+                s += problems[i][0];
+            }
         }
-        printf("%d\n",score);
+        cout << s << '\n';
     }
     return 0;
 }

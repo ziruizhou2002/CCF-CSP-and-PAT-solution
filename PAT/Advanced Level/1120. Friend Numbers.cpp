@@ -1,21 +1,23 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+using gg = long long;
 int main() {
-    int N;
-    scanf("%d",&N);
-    set<int>s;
-    while(N--){
-        int k,sum=0;
-        scanf("%d",&k);
-        //求出各位数字之和
-        do{
-            sum+=k%10;
-            k/=10;
-        }while(k!=0);
+    ios::sync_with_stdio(false);
+    gg n;
+    set<gg> s;
+    cin >> n;
+    while (n--) {
+        gg sum = 0, a;
+        cin >> a;
+        do {
+            sum += a % 10;
+            a /= 10;
+        } while (a != 0);
         s.insert(sum);
     }
-    printf("%d\n",s.size());
-    for(auto i=s.cbegin();i!=s.cend();++i)
-        printf("%s%d",i==s.cbegin()?"":" ",*i);
+    cout << s.size() << '\n';
+    for (auto i = s.begin(); i != s.end(); ++i) {
+        cout << (i == s.begin() ? "" : " ") << *i;
+    }
     return 0;
 }
