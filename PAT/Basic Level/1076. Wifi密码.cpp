@@ -1,14 +1,15 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    scanf("%d",&N);
-    while(N--){
-        char c1,c2;
-        for(int i=0;i<4;++i){
-            scanf("%*c%c-%c",&c1,&c2);
-            if(c2=='T')
-                printf("%d",(int)(c1-'A'+1));
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg n;
+    cin >> n;
+    string s;
+    while (cin >> s) {
+        if (s.back() == 'T') {
+            cout << (s[0] - 'A' + 1);
         }
     }
     return 0;
