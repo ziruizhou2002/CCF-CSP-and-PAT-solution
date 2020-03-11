@@ -1,19 +1,18 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-  int M,N,A,B,P;
-  scanf("%d%d%d%d%d",&M,&N,&A,&B,&P);
-  int K[M][N];
-  for(int i=0;i<M;++i)
-    for(int j=0;j<N;++j){
-      scanf("%d",&K[i][j]);
-      if(K[i][j]>=A&&K[i][j]<=B)
-        K[i][j]=P;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout << setfill('0');
+    gg n, m, a, b, r, k;
+    cin >> m >> n >> a >> b >> r;
+    for (auto i = 0; i < m; ++i) {
+        for (auto j = 0; j < n; ++j) {
+            cin >> k;
+            k = k >= a and k <= b ? r : k;
+            cout << setw(3) << k << (j == n - 1 ? '\n' : ' ');
+        }
     }
-  for(int i=0;i<M;++i){
-    for(int j=0;j<N;++j)
-      printf("%s%03d",j>0?" ":"",K[i][j]);
-    printf("\n");
-  }
-  return 0;
-} 
+    return 0;
+}

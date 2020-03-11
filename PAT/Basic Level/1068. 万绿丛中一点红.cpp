@@ -1,47 +1,43 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int A[1005][1005];
-int M,N,TOL;
-int around[8][2]={//8个方向
-    {-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}
-};
-bool outofBorder(int i,int j){//坐标是否越界
-    if(i<0||i>=N||j<0||j>=M)
-        return true;
-    return false;
-}
-bool f(int i,int j){//判断与周围的像素点的差的绝对值是否超过TOL
-    for(int k=0;k<8;++k){
-        int ii=i+around[k][0],jj=j+around[k][1];
-        if(!outofBorder(ii,jj))
-            if(abs(A[i][j]-A[ii][jj])<=TOL)//差的绝对值小于等于TOL，直接返回false
-                return false;
-    }
-    return true;
-}
-int main(){
-    scanf("%d%d%d",&M,&N,&TOL);
-    map<int,int>record;//记录每个像素点出现的次数
-    for(int i=0;i<N;++i)
-        for(int j=0;j<M;++j){
-            scanf("%d",&A[i][j]);
-            ++record[A[i][j]];
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg m, n, t, num = 0;  // num负责统计满足条件的像素个数
+    cin >> m >> n >> t;
+    gg p[n][m];
+    unordered_map<gg, gg> um;  //记录每个像素出现的次数
+    for (gg i = 0; i < n; ++i) {
+        for (gg j = 0; j < m; ++j) {
+            cin >> p[i][j];
+            ++um[p[i][j]];
         }
-    int num=0,ii=-1,jj=-1;
-    for(int i=0;i<N;++i)
-        for(int j=0;j<M;++j)
-            if(record[A[i][j]]==1&&f(i,j)){//像素点值唯一且与周围的像素点的差的绝对值超过给定的TOL
-                ii=i;
-                jj=j;
-                ++num;//满足条件的像素点数量递增
-                if(num>1){//满足条件的像素点不唯一
-                    printf("Not Unique");//输出"Not Unique"
-                    return 0;
+    }
+    array<gg, 3> ans{};
+    for (gg i = 0; i < n; ++i) {
+        for (gg j = 0; j < m; ++j) {
+            if (um[p[i][j]] > 1)  //该像素值出现多于一次，跳过
+                continue;
+            for (gg k1 = -1; k1 <= 1; ++k1) {  //遍历周围8个像素
+                for (gg k2 = -1; k2 <= 1; ++k2) {
+                    gg p1 = i + k1, p2 = j + k2;
+                    //是周围的点且像素差不大于t，该点不满足条件
+                    if (p1 >= 0 and p1 < n and p2 >= 0 and p2 < m and
+                        (p1 != i or p2 != j) and
+                        abs(p[i][j] - p[p1][p2]) <= t) {
+                        goto loop;
+                    }
                 }
             }
-    if(num==0)
-        printf("Not Exist");
-    else
-        printf("(%d, %d): %d",jj+1,ii+1,A[ii][jj]);
+            ans = {j + 1, i + 1, p[i][j]};
+            ++num;
+        loop:;
+        }
+    }
+    num == 0 ?
+        cout << "Not Exist" :
+        num > 1 ? cout << "Not Unique" :
+                  cout << '(' << ans[0] << ", " << ans[1] << "): " << ans[2];
     return 0;
 }
