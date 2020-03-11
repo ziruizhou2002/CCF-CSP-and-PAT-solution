@@ -20,6 +20,7 @@ int main() {
         else if (num > k / 2 and k > d)
             ++k2;
     }
-    printf("%.1f%% %.1f%%", k1 * 100.0 / n, k2 * 100.0 / n);
+    cout << fixed << setprecision(1);  //保留一位小数
+    cout << k1 * 100.0 / n << "% " << k2 * 100.0 / n << '%';
     return 0;
 }

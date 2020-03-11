@@ -11,9 +11,10 @@ int main() {
         h[b] = {a, c};
     }
     cin >> n;
+    cout << setfill('0');
     while (n--) {
         cin >> a;
-        printf("%016lld %lld\n", h[a][0], h[a][1]);
+        cout << setw(16) << h[a][0] << ' ' << h[a][1] << '\n';
     }
     return 0;
 }

@@ -10,6 +10,7 @@ int main() {
     vector<Student> students;
     gg n, l, h, id, de, cai, level;
     cin >> n >> l >> h;
+    cout << setfill('0');
     while (n--) {
         cin >> id >> de >> cai;
         if (de < l or cai < l)
@@ -30,7 +31,7 @@ int main() {
     });
     cout << students.size() << '\n';
     for (auto& s : students) {
-        printf("%08lld %lld %lld\n", s.id, s.de, s.cai);
+        cout << setw(8) << s.id << ' ' << s.de << ' ' << s.cai << '\n';
     }
     return 0;
 }

@@ -12,6 +12,6 @@ int main() {
     for (auto c : B)
         if (c - '0' == Db)
             b = b * 10 + Db;
-    printf("%lld", a + b);
+    cout << a + b;
     return 0;
 }

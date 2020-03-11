@@ -27,11 +27,12 @@ int main() {
         }
     }
     for (int i = 0; i < 5; ++i) {
-        cout << (i == 0 ? "" : " ");  //输出数字前的空格
-        if (num[i] == 0) {  //该类数字不存在
+        cout << (i == 0 ? "" : " ");
+        if (num[i] == 0) {
             cout << 'N';
         } else {
-            printf("%.*f", (i == 3 ? 1 : 0), (i == 3 ? ans[i] * 1.0 / num[i] : ans[i] * 1.0));
+            cout << fixed << setprecision(i == 3 ? 1 : 0)
+                 << (i == 3 ? ans[i] * 1.0 / num[i] : ans[i] * 1.0);
         }
     }
     return 0;
