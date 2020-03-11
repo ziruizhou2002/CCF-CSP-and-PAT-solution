@@ -3,6 +3,7 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     gg n, d, k, k1 = 0, k2 = 0;
     double e, a;
     cin >> n >> e >> d;

@@ -1,35 +1,30 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-const int INF=1e5;
-int hashTable[INF];//辅助数组
+using gg = long long;
 int main() {
-    int N;
-    scanf("%d",&N);
-    memset(hashTable,-1,sizeof(hashTable));//将hashTable初始化为-1
-    while(N--){
-        int a,b;
-        scanf("%d%d",&a,&b);
-        hashTable[a]=b;
-        hashTable[b]=a;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    unordered_map<gg, gg> um;  //记录配偶ID
+    gg n, a, b;
+    cin >> n;
+    while (n--) {
+        cin >> a >> b;
+        um[a] = b;
+        um[b] = a;
     }
-    scanf("%d",&N);
-    set<int>s;
-    while(N--){
-        int a;
-        scanf("%d",&a);
-        if(hashTable[a]==-1)//如果该客人没有配偶
-            s.insert(a);//直接将ID号加入set中
-        else{
-            auto i=s.find(hashTable[a]);//在set中查找是否包含其配偶的ID
-            if(i==s.cend())//不包含其配偶的ID
-                s.insert(a);//直接将ID号加入set中
-            else//包含其配偶的ID
-                s.erase(i);//在set中删除其配偶的ID
+    cin >> n;
+    set<gg> s;  //记录是否出现在派对上并排序
+    while (n--) {
+        cin >> a;
+        if (not um.count(a) or not s.count(um[a])) {
+            s.insert(a);
+        } else {
+            s.erase(um[a]);
         }
     }
-    //输出
-    printf("%d\n",s.size());
-    for(auto i=s.cbegin();i!=s.cend();++i)
-        printf("%s%05d",i==s.cbegin()?"":" ",*i);
+    cout << s.size() << '\n' << setfill('0');
+    for (auto i = s.begin(); i != s.end(); ++i) {
+        cout << (i == s.begin() ? "" : " ") << setw(5) << *i;
+    }
     return 0;
 }

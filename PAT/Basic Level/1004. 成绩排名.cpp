@@ -8,6 +8,7 @@ struct Student {
 };
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     gg n;
     cin >> n;
     Student Max(-1), Min(101), temp;  // Max初始成绩为-1，Min初试成绩为101
@@ -18,6 +19,7 @@ int main() {
         if (Min.score > temp.score)
             Min = temp;
     }
-    cout << Max.name << " " << Max.number << "\n" << Min.name << " " << Min.number;
+    cout << Max.name << " " << Max.number << "\n"
+         << Min.name << " " << Min.number;
     return 0;
 }

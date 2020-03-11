@@ -3,6 +3,7 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     array<array<gg, 2>, 1005> h{};
     gg n, a, b, c;
     cin >> n;

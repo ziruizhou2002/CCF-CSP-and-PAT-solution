@@ -6,10 +6,13 @@ struct Person {
     gg y, m, d;
     Person(gg yy, gg mm, gg dd, string n = "") : y(yy), m(mm), d(dd), name(n) {}
     //重载小于运算符
-    bool operator<(const Person& p) const { return tie(y, m, d) < tie(p.y, p.m, p.d); }
+    bool operator<(const Person& p) const {
+        return tie(y, m, d) < tie(p.y, p.m, p.d);
+    }
 };
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     gg n, num = 0;
     cin >> n;
     Person old(2014, 9, 6), young(1814, 9, 6), b1 = old, b2 = young, t(0, 0, 0);

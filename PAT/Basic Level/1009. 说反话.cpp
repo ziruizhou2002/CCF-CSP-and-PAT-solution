@@ -3,6 +3,7 @@
 using namespace std;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     string s;
     stack<string> st;
     while (cin >> s) {
@@ -20,6 +21,7 @@ int main() {
 using namespace std;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     string s;
     vector<string> v;
     while (cin >> s) {

@@ -3,6 +3,7 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     gg n, t, help = 1;
     cin >> n;
     gg ans[5]{}, num[5]{};  // ans记录A[1]~A[5]，num记录数字出现次数

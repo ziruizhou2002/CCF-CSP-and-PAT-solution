@@ -3,6 +3,7 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     string s, out = "PATest";
     unordered_map<char, gg> um;  //记录字符及其出现次数
     cin >> s;

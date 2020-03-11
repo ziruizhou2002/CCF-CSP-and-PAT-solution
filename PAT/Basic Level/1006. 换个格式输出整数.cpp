@@ -2,6 +2,7 @@
 using namespace std;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     string n;
     cin >> n;
     int s = n.size();  // s为字符串长度

@@ -8,6 +8,7 @@ struct Problem {
 };
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     vector<Problem> problems;
     gg n, m, a, b, c;
     cin >> n >> m;
@@ -37,9 +38,10 @@ int main() {
         }
         cout << score << '\n';  //输出学生分数
     }
-    gg Max = max_element(problems.begin(), problems.end(), [](Problem& p1, Problem& p2) {
-                 return p1.num < p2.num;
-             })->num;  //获取最大的题目错误次数
+    gg Max =
+        max_element(problems.begin(), problems.end(),
+                    [](Problem& p1, Problem& p2) { return p1.num < p2.num; })
+            ->num;  //获取最大的题目错误次数
     if (Max == 0) {  //没有错误的题目
         cout << "Too simple";
     } else {

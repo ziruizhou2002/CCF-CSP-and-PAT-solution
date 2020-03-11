@@ -3,10 +3,12 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     cout << setfill('0');  //输出用字符0填充
     // ABCDEFG七个字符到星期的映射
-    unordered_map<char, string> week = {{'A', "MON"}, {'B', "TUE"}, {'C', "WED"}, {'D', "THU"},
-                                        {'E', "FRI"}, {'F', "SAT"}, {'G', "SUN"}};
+    unordered_map<char, string> week = {
+        {'A', "MON"}, {'B', "TUE"}, {'C', "WED"}, {'D', "THU"},
+        {'E', "FRI"}, {'F', "SAT"}, {'G', "SUN"}};
     // 0~9、A~N到小时的映射
     unordered_map<char, gg> hour;
     for (gg i = 0; i < 24; ++i)

@@ -1,32 +1,30 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+using gg = long long;
 int main() {
-    int N;
-    scanf("%d",&N);
-    unordered_map<int,int>um;
-    while(N--){
-        int a,b;
-        scanf("%d%d",&a,&b);
-        um[a]=b;
-        um[b]=a;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    unordered_map<gg, gg> um;  //记录配偶ID
+    gg n, a, b;
+    cin >> n;
+    while (n--) {
+        cin >> a >> b;
+        um[a] = b;
+        um[b] = a;
     }
-    scanf("%d",&N);
-    set<int>s;
-    while(N--){
-        int a;
-        scanf("%d",&a);
-        if(um.find(a)==um.end())//如果该客人没有配偶
-            s.insert(a);//直接将ID号加入set中
-        else{
-            auto i=s.find(um[a]);//在set中查找是否包含其配偶的ID
-            if(i==s.cend())//不包含其配偶的ID
-                s.insert(a);//直接将ID号加入set中
-            else//包含其配偶的ID
-                s.erase(i);//在set中删除其配偶的ID
+    cin >> n;
+    set<gg> s;  //记录是否出现在派对上并排序
+    while (n--) {
+        cin >> a;
+        if (not um.count(a) or not s.count(um[a])) {
+            s.insert(a);
+        } else {
+            s.erase(um[a]);
         }
     }
-    printf("%d\n",s.size());
-    for(auto i=s.cbegin();i!=s.cend();++i)
-        printf("%s%05d",i==s.cbegin()?"":" ",*i);
+    cout << s.size() << '\n' << setfill('0');
+    for (auto i = s.begin(); i != s.end(); ++i) {
+        cout << (i == s.begin() ? "" : " ") << setw(5) << *i;
+    }
     return 0;
 }

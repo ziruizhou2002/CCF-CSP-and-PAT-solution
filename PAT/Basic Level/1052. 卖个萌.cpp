@@ -3,6 +3,7 @@ using namespace std;
 using gg = long long;
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(0);
     array<vector<string>, 3> e{};  //存储表情符号
     for (auto& v : e) {
         string line;
