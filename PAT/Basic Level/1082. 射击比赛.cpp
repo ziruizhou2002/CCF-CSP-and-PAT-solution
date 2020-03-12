@@ -1,21 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct Temp{
-    int id,x,y;
-    Temp(int iid,int xx,int yy):id(iid),x(xx),y(yy){}
-    bool operator <(const Temp&t)const{//重载小于运算符
-        return this->x*this->x+this->y*this->y<t.x*t.x+t.y*t.y;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni;
+    cin >> ni;
+    using Player = array<gg, 3>;
+    vector<Player> v(ni);
+    for (gg i = 0; i < ni; ++i) {
+        cin >> v[i][0] >> v[i][1] >> v[i][2];
     }
-};
-int main(){
-    int N;
-    scanf("%d",&N);
-    Temp t(0,0,0),Max(0,0,0),Min(0,101,101);
-    for(int i=0;i<N;++i){
-        scanf("%d%d%d",&t.id,&t.x,&t.y);
-        Min=min(Min,t);
-        Max=max(Max,t);
-    }
-    printf("%04d %04d",Min.id,Max.id);
+    auto ans = minmax_element(
+        v.begin(), v.end(), [](const Player& p1, const Player& p2) {
+            return hypot(p1[1], p1[2]) < hypot(p2[1], p2[2]);
+        });
+    cout << setfill('0') << setw(4) << (*ans.first)[0] << ' ' << setw(4)
+         << (*ans.second)[0];
     return 0;
 }
