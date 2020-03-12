@@ -1,36 +1,36 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    string input;
-    char flag;
-    //读取数据
-    scanf("%c",&flag);
-    getchar();
-    getline(cin,input);
-    if(flag=='C'){//压缩字符串
-        int num=1;//开始字符个数为1
-        for(int i=0;i<input.size();++i){
-            if(input[i]!=input[i+1]){//当前字符与其后一个字符不同
-                if(num>1)
-                    cout<<num;//字符数不为1输出字符数
-                cout<<input[i];//输出字符
-                num=1;//当前字符数仍为1
-            }else//当前字符与其后一个字符相同
-                ++num;//递增字符数
-        }
-    }else if(flag=='D'){//解压缩字符串
-        int num=0;//记录输出字符数量，初始化为0
-        for(int i=0;i<input.size();++i){
-            if(isdigit(input[i]))//如果是数字，将其转换为整数累加
-                num=num*10+input[i]-'0';
-            else if(num==0)//字符数量为0，只需输出一个字符
-                cout<<input[i];
-            else{//输出num个字符
-                for(int j=0;j<num;++j)
-                    cout<<input[i];
-                num=0;
-            }
-        }
+using gg = long long;
+string compress(const string& s) {  //压缩
+    string r;
+    for (gg i = 0, j = 0; i < s.size(); i = j) {
+        //找到下标i之后第一个与s[i]不同的字符的下标
+        j = s.find_first_not_of(s[i], i);
+        if (j == -1)
+            j = s.size();
+        //压缩当前字符
+        r += (j - i == 1 ? "" : to_string(j - i)) + string(1, s[i]);
     }
+    return r;
+}
+string decompress(const string& s) {  //解压
+    string r;
+    for (gg i = 0, j = 0; i < s.size(); i = j + 1) {
+        //找到下标i之后第一个非数字字符的下标
+        j = s.find_first_not_of("0123456789", i);
+        //解析字符s[j]的个数
+        gg k = j - i == 0 ? 1 : stoll(s.substr(i, j - i));
+        //解压s[j]字符
+        r += string(k, s[j]);
+    }
+    return r;
+}
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    string fi, si;
+    getline(cin, fi);
+    getline(cin, si);
+    cout << (fi == "C" ? compress(si) : decompress(si));
     return 0;
 }

@@ -1,22 +1,27 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N,M;
-    scanf("%d%d",&N,&M);
-    for(int i=0;i<N;++i){
-        double G1=0.0,G2;
-        vector<int>g1;
-        scanf("%lf",&G2);
-        for(int j=0;j<N-1;++j){
-            int k;
-            scanf("%d",&k);
-            if(0<=k&&k<=M)
-                g1.push_back(k);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, mi;
+    cin >> ni >> mi;
+    for (gg i = 0; i < ni; ++i) {
+        gg g1, a;
+        vector<gg> g2;
+        cin >> g1;
+        for (gg j = 0; j < ni - 1; ++j) {
+            cin >> a;
+            if (a >= 0 and a <= mi) {  //只统计[0,mi]之内的分数
+                g2.push_back(a);
+            }
         }
-        sort(g1.begin(),g1.end());
-        for(int j=1;j<g1.size()-1;++j)
-            G1+=g1[j]*1.0;
-        printf("%.0f\n",round((G2+G1/(g1.size()-2))/2));
+        //找到最高和最低的成绩
+        auto m = minmax_element(g2.begin(), g2.end());
+        //统计去除最高和最低的成绩后的分数总和
+        gg g2a = accumulate(g2.begin(), g2.end(), 0) - *m.first - *m.second;
+        //计算最终成绩
+        cout << round((g1 + g2a * 1.0 / (g2.size() - 2)) / 2.0) << '\n';
     }
     return 0;
 }
