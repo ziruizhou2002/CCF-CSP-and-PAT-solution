@@ -1,18 +1,26 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N,M,a;
-    scanf("%d%d",&N,&M);
-    int A[N+1]={0};
-    while(M--)
-        for(int i=1;i<=N;++i){
-            scanf("%d",&a);
-            A[i]+=a;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, mi, ai;
+    cin >> ni >> mi;
+    vector<gg> v(ni);
+    while (mi--) {
+        for (int i = 0; i < v.size(); ++i) {
+            cin >> ai;
+            v[i] += ai;
         }
-    int MAX=max_element(A+1,A+N+1)-A;
-    printf("%d\n",A[MAX]);
-    for(auto i=1;i<=N;++i)
-        if(A[i]==A[MAX])
-            printf("%s%d",i==MAX?"":" ",i);
+    }
+    gg ans = *max_element(v.begin(), v.end());
+    cout << ans << '\n';
+    bool space = false;
+    for (gg i = 0; i < v.size(); ++i) {
+        if (v[i] == ans) {
+            cout << (space ? " " : "") << (i + 1);
+            space = true;
+        }
+    }
     return 0;
 }

@@ -1,17 +1,24 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int M,K;
-    scanf("%d",&M);
-    while(M--){
-        scanf("%d",&K);
-        int i,N;
-        for(i=10;K/i!=0;i*=10);
-        for(N=1;N<10&&K*K*N%i!=K;++N);
-        if(N==10)
-            puts("No");
-        else
-            printf("%d %d\n",N,K*K*N);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg mi, ki;
+    cin >> mi;
+    while (mi--) {
+        cin >> ki;
+        gg m = 1;
+        for (gg i = ki; i != 0; i /= 10)
+            m *= 10;
+        for (gg n = 1; n < 10; ++n) {
+            if (n * ki * ki % m == ki) {
+                cout << n << ' ' << n * ki * ki << '\n';
+                goto loop;
+            }
+        }
+        cout << "No\n";
+    loop:;
     }
     return 0;
 }
