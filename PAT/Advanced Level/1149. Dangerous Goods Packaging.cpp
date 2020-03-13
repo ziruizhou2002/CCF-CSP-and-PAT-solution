@@ -1,26 +1,37 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N,M,K,a,b;
-    scanf("%d%d",&N,&M);
-    unordered_map<int,unordered_set<int>>mp;
-    for(int i=0;i<N;++i){
-        scanf("%d%d",&a,&b);
-        mp[a].insert(b);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, mi, ki, ai, bi;
+    cin >> ni >> mi;
+    //存储不相容的物品对
+    unordered_map<gg, unordered_set<gg>> um;
+    while (ni--) {
+        cin >> ai >> bi;
+        um[ai].insert(bi);
+        um[bi].insert(ai);
     }
-    while(M--){
-        scanf("%d",&K);
-        unordered_set<int>s;
-        while(K--){
-            scanf("%d",&a);
-            s.insert(a);
+    while (mi--) {
+        cin >> ki;
+        unordered_set<gg> us;
+        while (ki--) {
+            cin >> ai;
+            us.insert(ai);
         }
-        bool flag=true;
-        for(auto i:s)
-            for(auto j:mp[i])
-                if(s.find(j)!=s.end())
-                    flag=false;
-        printf("%s\n",flag?"Yes":"No");
+        for (auto i : us) {  //遍历货物清单
+            if (um.count(i)) {  //有不相容的物品
+                for (auto j : um[i]) {  //遍历不相容的物品
+                    if (us.count(j)) {  //不相容的物品在该箱中
+                        cout << "No\n";
+                        goto loop;
+                    }
+                }
+            }
+        }
+        cout << "Yes\n";
+    loop:;
     }
     return 0;
 }

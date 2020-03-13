@@ -1,20 +1,23 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-string f(double A,int M){
-    return A>M*1.0?"Cong":A==M*1.0?"Ping":"Gai";
-}
-int main(){
-    int M,X,Y,A,B;
-    double C;
-    scanf("%d%d%d",&M,&X,&Y);
-    for(A=99;A>=10;--A){
-        B=A%10*10+A/10;
-        if(abs(A-B)*1.0/X==B*1.0/Y){
-            C=B*1.0/Y;
-            printf("%d %s %s %s",A,f(A*1.0,M).c_str(),f(B*1.0,M).c_str(),f(C,M).c_str());
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    array<double, 3> p{};
+    gg mi, xi, yi;
+    cin >> mi >> xi >> yi;
+    for (gg i = 99; i >= 10; --i) {
+        gg j = i % 10 * 10 + i / 10;
+        p = {i * 1.0, j * 1.0, j * 1.0 / yi};
+        if (abs(p[2] - abs(i - j) * 1.0 / xi) < 1e-9) {
+            cout << p[0];
+            for (auto i : p) {
+                cout << ' ' << (i > mi ? "Cong" : i < mi ? "Gai" : "Ping");
+            }
             return 0;
         }
     }
-    printf("No Solution");
+    cout << "No Solution";
     return 0;
 }
