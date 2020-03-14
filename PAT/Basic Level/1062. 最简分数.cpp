@@ -1,25 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-//计算a和b的最大公约数
-int gcd(int a,int b){
-    return b==0?a:gcd(b,a%b);
-}
+using gg = long long;
+gg gcd(gg a, gg b) { return b == 0 ? a : gcd(b, a % b); }
 int main() {
-    int a,b,c,d,e;
-    scanf("%d/%d %d/%d %d",&a,&b,&c,&d,&e);
-    double k1=(double)a*e/b,k2=(double)c*e/d;//获取将两个分数化为以给定整数位分母后的分子
-    //令k1表示小的分子，k2表示大的分子
-    if(k1>k2)
-        swap(k1,k2);
-    a=(int)floor(k1+1);//获取小的整数分子，对k1+1进行向下取整
-    c=(int)ceil(k2-1);//获取大的整数分子，对k2-1进行向上取整
-    bool output=false;
-    for(int i=a;i<=c;++i){//在[a,c]范围内进行查找
-        if(gcd(i,e)==1){//最大公约数为1，进行输出
-            if(output)
-                printf(" ");
-            printf("%d/%d",i,e);
-            output=true;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ki, a1, b1, a2, b2;
+    char c;
+    cin >> a1 >> c >> b1 >> a2 >> c >> b2 >> ki;
+    double n1 = (a1 * 1.0 * ki / b1), n2 = (a2 * 1.0 * ki / b2);
+    if (n1 > n2)
+        swap(n1, n2);
+    bool space = false;
+    for (gg i = floor(n1 + 1); i <= ceil(n2 - 1); ++i) {
+        if (gcd(i, ki) == 1) {
+            cout << (space ? " " : "") << i << '/' << ki;
+            space = true;
         }
     }
     return 0;

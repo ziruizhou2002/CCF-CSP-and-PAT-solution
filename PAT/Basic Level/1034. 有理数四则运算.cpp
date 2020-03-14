@@ -1,108 +1,96 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct Fraction{
-    //虽然题目中说明分子分母都在整型范围内，  
-    //但是在四则运算过程中很可能超出int范围，最好用long long存储  
-    long long mother;
-    long long son;
-};
-//辗转相除法求最大公约数  
-long long gcd(long long a,long long b){
-    return b==0?a:gcd(b,a%b);
+using gg = long long;
+//通过欧几里得算法计算两个正整数的最大公约数
+gg gcd(gg a, gg b) { return b == 0 ? a : gcd(b, a % b); }
+//以下代码进行分数的输入、输出、化简以及加减乘除四则运算
+using F = array<gg, 2>;
+//分数的输入，针对的是按a/b的格式给出分数形式，分母不为0
+F input() {
+    F f;
+    char c;  //吸收'/'符号
+    cin >> f[0] >> c >> f[1];
+    return f;
 }
-//约分
-void simplify(Fraction&f){
-    if(f.son==0){
-        f.mother=1;
+//分数的化简
+void simplify(array<gg, 2>& f) {
+    if (f[0] == 0) {  //如果分子f[0]为0，则令f[1]=1
+        f[1] = 1;
         return;
     }
-    if(f.mother<0){
-        f.mother=-f.mother;
-        f.son=-f.son;
+    if (f[1] < 0) {  //如果分母f[1]为负，将分子f[0]和分母f[1]都取相反数
+        f[1] = -f[1];
+        f[0] = -f[0];
     }
-    long long d=gcd(max(abs(f.son),f.mother),min(abs(f.son),f.mother));
-    f.son/=d;
-    f.mother/=d;
+    gg d = gcd(abs(f[0]), abs(f[1]));  //求出分子f[0]和分母f[1]绝对值的最大公约数
+    f[0] /= d;
+    f[1] /= d;
 }
-//加法  
-Fraction add(Fraction&f1,Fraction&f2){
-    Fraction f3;
-    f3.son=f1.son*f2.mother+f1.mother*f2.son;
-    f3.mother=f1.mother*f2.mother;
-    simplify(f3);
-    return f3;
+//分数的加法
+F Plus(const F& f1, const F& f2) {
+    F f;
+    f[0] = f1[0] * f2[1] + f2[0] * f1[1];
+    f[1] = f1[1] * f2[1];
+    simplify(f);
+    return f;
 }
-//减法
-Fraction sub(Fraction&f1,Fraction&f2){
-    Fraction f3;
-    f3.son=f1.son*f2.mother-f1.mother*f2.son;
-    f3.mother=f1.mother*f2.mother;
-    simplify(f3);
-    return f3;
+//分数的减法
+F Sub(const F& f1, const F& f2) {
+    F f;
+    f[0] = f1[0] * f2[1] - f2[0] * f1[1];
+    f[1] = f1[1] * f2[1];
+    simplify(f);
+    return f;
 }
-//乘法
-Fraction mul(Fraction&f1,Fraction&f2){
-    Fraction f3;
-    f3.son=f1.son*f2.son;
-    f3.mother=f1.mother*f2.mother;
-    simplify(f3);
-    return f3;
+//分数的乘法
+F Multiply(const F& f1, const F& f2) {
+    F f;
+    f[0] = f1[0] * f2[0];
+    f[1] = f1[1] * f2[1];
+    simplify(f);
+    return f;
 }
-//除法
-Fraction div(Fraction&f1,Fraction&f2){
-    Fraction f3;
-    f3.son=f1.son*f2.mother;
-    f3.mother=f1.mother*f2.son;
-    simplify(f3);
-    return f3;
+//分数的除法
+F Div(const F& f1, const F& f2) {
+    F f;
+    f[0] = f1[0] * f2[1];
+    f[1] = f1[1] * f2[0];
+    simplify(f);
+    return f;
 }
-//输出分数
-void output(Fraction&f){
-    if(f.son<0)
-        printf("(");
-    if(f.mother==1)
-        printf("%lld",f.son);
-    else{
-        if(abs(f.son)>=f.mother)
-            printf("%lld %lld/%lld",f.son/f.mother,abs(f.son)%f.mother,f.mother);  
-        else
-            printf("%lld/%lld",f.son,f.mother);
-    }
-    if(f.son<0)
-        printf(")");
+//分数输出
+void output(const F& f) {
+    if (f[0] < 0)
+        cout << '(';
+    if (f[1] == 1) {
+        cout << f[0];
+    } else if (abs(f[0]) < f[1]) {
+        cout << f[0] << "/" << f[1];
+    } else
+        cout << f[0] / f[1] << " " << abs(f[0]) % f[1] << "/" << f[1];
+    if (f[0] < 0)
+        cout << ')';
 }
- 
-int main(){
-    Fraction f1,f2,f3;
-    scanf("%lld/%lld %lld/%lld",&f1.son,&f1.mother,&f2.son,&f2.mother);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    auto f1 = input(), f2 = input();
     simplify(f1);
     simplify(f2);
-    for(int i=0;i<4;++i){
+    unordered_map<char, function<F(F, F)>> um = {
+        {'+', Plus}, {'-', Sub}, {'*', Multiply}, {'/', Div}};
+    for (char c : {'+', '-', '*', '/'}) {
         output(f1);
-        bool f=true;
-        if(i==0){
-            printf(" + ");
-            f3=add(f1,f2);
-        }else if(i==1){
-            printf(" - ");
-            f3=sub(f1,f2);
-        }else if(i==2){
-            printf(" * ");
-            f3=mul(f1,f2);
-        }else if(i==3){
-            printf(" / ");
-            if(f2.son==0)
-                f=false;
-            else
-                f3=div(f1,f2);
-        }
+        cout << ' ' << c << ' ';
         output(f2);
-        printf(" = ");
-        if(f)
+        cout << " = ";
+        if (c == '/' and f2[0] == 0) {
+            cout << "Inf\n";
+        } else {
+            auto f3 = um[c](f1, f2);
             output(f3);
-        else
-            printf("Inf");
-        printf("\n");
+            cout << '\n';
+        }
     }
     return 0;
 }
