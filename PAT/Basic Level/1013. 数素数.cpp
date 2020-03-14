@@ -1,27 +1,25 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int M,N;
-vector<int>prime;
-vector<bool>number(1000000,true);
-void findPrime(){//埃氏筛法求解1000000以内的素数表
-    vector<bool>number(100005,true);
-    for(int i=2;i<number.size();++i)
-        if(number[i]){//如果是素数
-            prime.push_back(i);//加入prime中
-            for(int j=i+i;j<number.size();j+=i)//将数组number中下标凡是i的倍数的均置为false，表示不是素数
-                number[j]=false;
-        }
+using gg = long long;
+bool isPrime(gg n) {
+    if (n < 2)  // n小于2，一定不是素数
+        return false;
+    for (gg i = 2; i <= (gg)sqrt(n); ++i)  //遍历2~根号n所有的数
+        if (n % i == 0)  // n能被i整除，说明n不是素数
+            return false;
+    return true;  // n不能被2~n任何数整除，则n是素数
 }
-int main(){
-    scanf("%d%d",&M,&N);
-    findPrime();
-    int j=0;
-    for(int i=M-1;i<N;++i){
-        printf("%s%d",j>0?" ":"",prime[i]);
-        ++j;
-        if(j==10){//每输出10个数换一次行 
-            printf("\n");
-            j=0;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg mi, ni;
+    cin >> mi >> ni;
+    for (gg i = 2, j = 0; j <= ni; ++i) {
+        if (isPrime(i)) {
+            ++j;
+            if (j >= mi and j <= ni) {
+                cout << i << ((j - mi + 1) % 10 == 0 or j == ni ? '\n' : ' ');
+            }
         }
     }
     return 0;

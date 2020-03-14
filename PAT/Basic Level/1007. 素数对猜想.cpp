@@ -1,22 +1,28 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-vector<int>prime;
-void findPrime(){//埃氏筛法求解100005以内的素数表
-    vector<bool>number(100005,true);
-    for(int i=2;i<number.size();++i)
-        if(number[i]){//如果是素数
-            prime.push_back(i);//加入prime中
-            for(int j=i+i;j<number.size();j+=i)//将数组number中下标凡是i的倍数的均置为false，表示不是素数
-                number[j]=false;
+using gg = long long;
+vector<gg> prime;  //素数表存储在prime中，prime是全局变量
+void getPrime(gg n = 100005) {
+    // f[i]为true，表示数字i被筛去了；如果f[i]为false，表示数字i没有被筛去
+    bitset<100005> f;  //这里默认n小于100005
+    for (gg i = 2; i <= n; ++i)
+        if (!f[i]) {  // i没有被筛去
+            prime.push_back(i);
+            for (gg j = i + i; j <= n; j += i)  //筛去i的所有倍数
+                f[j] = true;
         }
 }
-int main(){
-    int N,count=0;
-    scanf("%d",&N);
-    findPrime();
-    for(int i=1;prime[i]<=N;++i)
-        if(prime[i]-prime[i-1]==2)
-            ++count;
-    printf("%d",count);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, ans = 0;
+    cin >> ni;
+    getPrime(ni);
+    for (gg i = 1; i < prime.size(); ++i) {
+        if (prime[i] - prime[i - 1] == 2) {
+            ++ans;
+        }
+    }
+    cout << ans;
     return 0;
 }
