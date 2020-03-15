@@ -1,73 +1,71 @@
 //二维数组输出方式
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    char c;
-    scanf("%d %c",&N,&c);
-    //获取漏斗上半部分行数mid，总行数row
-    int mid=(int)sqrt((N+1)/2*1.0);
-    int row=2*mid-1;
-    //定义二维数组
-    char result[row][row];
-    //初始化二维数组
-    for(int i=0;i<row;++i)
-        for(int j=0;j<row;++j)
-            result[i][j]=' ';
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni;
+    char ci;
+    cin >> ni >> ci;
+    //获取漏斗上半部分行数k，总行数row
+    gg k = (gg)sqrt((ni + 1) / 2 * 1.0), row = 2 * k - 1;
+    //定义二维数组并将元素都初始化为空格字符
+    vector<vector<char>> ans(row, vector<char>(row, ' '));
     //填充二维数组
-    for(int i=0;i<mid;++i)
-        for(int j=mid-1-i;j<mid+i;++j)
-            result[mid-1-i][j]=result[mid-1+i][j]=c;
+    for (gg i = 0; i < k; ++i)
+        for (gg j = k - 1 - i; j < k + i; ++j)
+            ans[k - 1 - i][j] = ans[k - 1 + i][j] = ci;
     //输出二维数组
-    for(int i=0;i<row;++i){
-        bool output=true;
-        for(int j=0;j<row;++j){
-            if(result[i][j]==' '&&!output)
+    for (gg i = 0; i < row; ++i) {
+        bool output = true;
+        for (gg j = 0; j < row; ++j) {
+            if (ans[i][j] == ' ' and !output)
                 break;
-            if(result[i][j]!=' '){
-                output=false;
+            if (ans[i][j] != ' ') {
+                output = false;
             }
-            printf("%c",result[i][j]);
+            cout << ans[i][j];
         }
-        printf("\n");
+        cout << '\n';
     }
     //输出剩余字符个数
-    printf("%d",N-2*mid*mid+1);
+    cout << ni - 2 * k * k + 1;
     return 0;
 }
-
-
 //直接输出方式
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    char c;
-    scanf("%d %c",&N,&c);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni;
+    char ci;
+    cin >> ni >> ci;
     //获取漏斗上半部分行数mid，总行数row
-    int mid=(int)sqrt((N+1)/2*1.0);
-    int row=2*mid-1;
+    gg k = (gg)sqrt((ni + 1) / 2 * 1.0), row = 2 * k - 1;
     //输出上半部分
-    int space=0;
-    for(int i=row;i>=1;i-=2){
-        for(int j=0;j<space;++j)
-            printf(" ");
+    gg space = 0;
+    for (gg i = row; i >= 1; i -= 2) {
+        for (gg j = 0; j < space; ++j)
+            cout << ' ';
         ++space;
-        for(int j=0;j<i;++j)
-            printf("%c",c);
-        printf("\n");
+        for (gg j = 0; j < i; ++j)
+            cout << ci;
+        cout << '\n';
     }
     --space;
     //输出下半部分
-    for(int i=3;i<=row;i+=2){
+    for (gg i = 3; i <= row; i += 2) {
         --space;
-        for(int j=0;j<space;++j)
-            printf(" ");
-        for(int j=0;j<i;++j)
-            printf("%c",c);
-        printf("\n");
+        for (gg j = 0; j < space; ++j)
+            cout << ' ';
+        for (gg j = 0; j < i; ++j)
+            cout << ci;
+        cout << '\n';
     }
     //输出剩余字符个数
-    printf("%d",N-2*mid*mid+1);
+    cout << ni - 2 * k * k + 1;
     return 0;
 }
