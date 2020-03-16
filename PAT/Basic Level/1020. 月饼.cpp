@@ -1,30 +1,31 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct Mooncake{
-    double store,price,pricePerStore;
-};
-int main(){
-    int N,D;
-    scanf("%d%d",&N,&D);
-    Mooncake mooncake[N];
-    for(int i=0;i<N;++i)
-        scanf("%lf",&mooncake[i].store);
-    for(int i=0;i<N;++i)
-        scanf("%lf",&mooncake[i].price);
-    for(int i=0;i<N;++i)
-        mooncake[i].pricePerStore=mooncake[i].price/mooncake[i].store;//计算单价
-    sort(mooncake,mooncake+N,[](const Mooncake&m1,const Mooncake&m2){
-        return m1.pricePerStore>m2.pricePerStore;
-    });//按单价排序
-    double sumPrice=0.0;//卖的最大收益
-    for(int i=0;i<N;++i)
-        if(D>mooncake[i].store){//D比当前的月饼的库存量大
-            sumPrice+=mooncake[i].price;//将当前月饼都卖出去
-            D-=mooncake[i].store;//更新D
-        }else{//D比当前的月饼的库存量小
-            sumPrice+=D*mooncake[i].pricePerStore;//卖出库存为D的当前月饼
-            break;//跳出循环
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, di;
+    cin >> ni >> di;
+    using ad2 = array<double, 2>;  //存储月饼的库存量和总售价
+    vector<ad2> cakes(ni);
+    for (gg i = 0; i < ni; ++i)
+        cin >> cakes[i][0];
+    for (gg i = 0; i < ni; ++i)
+        cin >> cakes[i][1];
+    //按单价从大到小排序
+    sort(cakes.begin(), cakes.end(), [](const ad2& c1, const ad2& c2) {
+        return c1[1] * 1.0 / c1[0] > c2[1] * 1.0 / c2[0];
+    });
+    double ans = 0.0;  //存储最终收益
+    for (auto& c : cakes) {
+        if (di >= c[0]) {
+            ans += c[1];
+            di -= c[0];
+        } else {
+            ans += c[1] * 1.0 / c[0] * di;
+            di = 0;
         }
-    printf("%.2f",sumPrice);
+    }
+    cout << fixed << setprecision(2) << ans;
     return 0;
 }

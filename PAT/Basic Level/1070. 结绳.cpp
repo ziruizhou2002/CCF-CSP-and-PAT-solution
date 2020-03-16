@@ -1,15 +1,16 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    scanf("%d",&N);
-    double A[N];
-    for(int i=0;i<N;++i)
-        scanf("%lf",&A[i]);
-    sort(A,A+N);//排序
-    double sum=A[0];
-    for(int i=1;i<N;++i)
-        sum=sum/2+A[i]/2;//对折两根绳子
-    printf("%d",(int)floor(sum));//向下取整
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg n;
+    cin >> n;
+    vector<double> v(n);
+    for (int i = 0; i < n; ++i)
+        cin >> v[i];
+    sort(v.begin(), v.end());
+    cout << floor(accumulate(v.begin() + 1, v.end(), v[0],
+                             [](double a, double b) { return (a + b) / 2; }));
     return 0;
 }
