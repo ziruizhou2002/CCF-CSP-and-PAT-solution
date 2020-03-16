@@ -1,18 +1,20 @@
-#include<bits/stdc++.h>
+//二分查找
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N;
-    long long p;
-    scanf("%d%lld",&N,&p);
-    long long a[N];
-    for(int i=0;i<N;++i)
-        scanf("%lld",&a[i]);
-    sort(a,a+N);
-    int maxLength=-1;
-    for(int i=0;i<N;++i){
-        int t=upper_bound(a+i+1,a+N,a[i]*p)-a-i;
-        maxLength=max(t,maxLength);
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, pi, ans = 0;
+    cin >> ni >> pi;
+    vector<gg> v(ni);
+    for (gg i = 0; i < ni; ++i) {
+        cin >> v[i];
     }
-    printf("%d",maxLength);
+    sort(v.begin(), v.end());
+    for (gg i = 0; i < ni; ++i) {
+        ans = max(ans, upper_bound(v.begin(), v.end(), v[i] * pi) - v.begin() - i);
+    }
+    cout << ans;
     return 0;
 }

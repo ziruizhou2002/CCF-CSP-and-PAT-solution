@@ -1,34 +1,37 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int N,M;
-    scanf("%d%d",&N,&M);
-    int A[M];
-    for(int i=0;i<M;++i)
-        scanf("%d",&A[i]);
-    sort(A,A+M);//对存储需要查缴的物品编号的数组进行排序
-    int n1=0,n2=0;//学生的总人数和被查缴物品的总数
-    while(N--){
-        char name[5];
-        int K;
-        scanf("\n%s %d",name,&K);
-        bool output=false;//是否已经进行了输出
-        while(K--){
-            int k;
-            scanf("%d",&k);
-            if(binary_search(A,A+M,k)){//在数组A中进行二分查找
-                if(!output)//没输出过
-                    printf("%s:",name);//输出名字
-                printf(" %04d",k);//输出物品编号
-                output=true;
-                ++n2;
+using gg = long long;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, mi, ki, ai;
+    cin >> ni >> mi;
+    vector<gg> v(mi);
+    for (gg i = 0; i < mi; ++i) {
+        cin >> v[i];
+    }
+    array<gg, 2> ans{};  //存储学生人数和收缴的物品个数
+    string name;
+    while (ni--) {
+        cin >> name >> ki;
+        bool output = false;
+        while (ki--) {
+            cin >> ai;
+            //判断物品ai是否应该被收缴
+            if (any_of(v.begin(), v.end(), [ai](int a) { return a == ai; })) {
+                if (not output) {
+                    cout << name << ':';
+                    output = true;
+                    ++ans[0];
+                }
+                //注意不足4位数字要在高位补0
+                cout << ' ' << setfill('0') << setw(4) << ai;
+                ++ans[1];
             }
         }
-        if(output){
-            ++n1;
-            printf("\n");
-        }
+        if (output)
+            cout << '\n';
     }
-    printf("%d %d",n1,n2);//输出学生的总人数和被查缴物品的总数
+    cout << ans[0] << ' ' << ans[1];
     return 0;
 }

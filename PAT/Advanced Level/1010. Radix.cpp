@@ -1,37 +1,44 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-unordered_map<char,int>charToint;//记录0-9,a-z字符对应的进制
-long long trans(char*s,long long radix){//转换成10进制
-    long long result=0;
-    for(int i=0;s[i]!='\0';++i)
-        result=result*radix+charToint[s[i]];
-    return result;
-}
-long long findRadix(char*n1,char*n2,long long radix){//查找符合要求的进制
-    long long right=trans(n1,radix),left=-1,tag=right;//left指示要查找的进制数的下限，right指示要查找的进制数的上限，tag表示n1表示的十进制数
-    for(int i=0;n2[i]!='\0';++i)//找到要查找的进制数的下限
-        left=max(left,(long long)charToint[n2[i]]+1);
-    while(left<right){//二分查找第一个使得n2指向的字符串表示的数大于等于tag的进制
-        long long mid=left+(right-left)/2,k=trans(n2,mid);
-        if(k<0||k>=tag)//k<0时表示数据已经超出long long存储范围
-            right=mid;
-        else if(k<tag)
-            left=mid+1;
+using gg = long long;
+unordered_map<char, gg> um;  //存储字符和对应的基数
+gg binarySearchF(gg left, gg right, function<bool(gg)> f) {
+    while (left < right) {
+        gg mid = (left + right) / 2;
+        if (f(mid))
+            right = mid;
+        else
+            left = mid + 1;
     }
-    if(trans(n2,left)!=tag)//如果查找到的进制下两数不相等，返回-1
-        left=-1;
-    return left;
+    return left > right or not f(left) ? -1 : left;
 }
-int main(){
-    char s1[11],s2[11];
-    long long tag,radix;
-    scanf("%s %s%lld%lld",s1,s2,&tag,&radix);
-    for(int i=0;i<36;++i)//将0-9,a-z字符对应的进制压入charToint的map中，方便进行转换
-        charToint.insert({i<10?i+'0':i-10+'a',i});
-    radix=tag==1?findRadix(s1,s2,radix):findRadix(s2,s1,radix);//查找符合条件的进制
-    if(radix==-1)//没有找到输出Impossible
-        printf("Impossible");
-    else//否则直接输出
-        printf("%lld",radix);
+gg rToDec(const string& r, gg R) {  //将R进制数转换成十进制数
+    gg d = 0;
+    for (auto i : r)
+        d = d * R + um[i];
+    return d;
+}
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    string s1, s2;
+    gg tag, radix;
+    cin >> s1 >> s2 >> tag >> radix;
+    if (tag == 2)  //让s1作为指定了进制的数，s2作为要查找进制的数
+        swap(s1, s2);
+    for (gg i = 0; i < 36; ++i) {  //存储字符和对应的基数
+        um.insert({i < 10 ? i + '0' : i - 10 + 'a', i});
+    }
+    gg n = rToDec(s1, radix);
+    //找到s2中对应基数最大的字符，从而确定查找下限
+    auto m = max_element(s2.begin(), s2.end(),
+                         [](char c1, char c2) { return um[c1] < um[c2]; });
+    gg left = um[*m] + 1;  //查找下限
+    auto ans = binarySearchF(left, n + 1, [&s2, n](int a) {
+        auto k = rToDec(s2, a);
+        return k >= n or k < 0;  // k<0说明发生了数据溢出，这时也满足>=n的条件
+    });
+    //查找失败或查找到的第一个>=n的数不等于n，要输出Impossible
+    ans == -1 or rToDec(s2, ans) != n ? cout << "Impossible" : cout << ans;
     return 0;
 }
