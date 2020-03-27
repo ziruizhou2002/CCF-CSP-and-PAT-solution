@@ -47,13 +47,13 @@ void levelOrder(gg root) {
     while (not q.empty()) {
         gg s = q.size(), ans = 0;
         while (s--) {
-            auto i = q.front();
+            auto t = q.front();
             q.pop();
-            if (tree[i].empty()) {  //是叶子结点
+            if (tree[t].empty()) {  //是叶子结点
                 ++ans;
             }
-            for (auto j : tree[i]) {
-                q.push(j);
+            for (auto i : tree[t]) {
+                q.push(i);
             }
         }
         cout << (space ? " " : "") << ans;
