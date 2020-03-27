@@ -1,28 +1,77 @@
-#include<bits/stdc++.h>
+//使用DFS
+#include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>>tree(100);//下标存储结点编号，元素内容存储儿子结点编号
-int leaveNumOfLevel[100],maxLevel=-1;//每层叶子节点数、最大层数
-int N,M;
-void DFS(int v,int level){//深度优先遍历
-    maxLevel=max(level,maxLevel);//更新最大层数
-    if(tree[v].empty())//如果没有儿子结点，则为叶节点
-        ++leaveNumOfLevel[level];//递增该节点所处层数下的叶节点数目
-    for(int i:tree[v])//不是叶节点
-        DFS(i,level+1);//递归遍历儿子结点
+using gg = long long;
+vector<vector<gg>> tree(105);
+gg ni, mi, ki;
+vector<gg> ans;  //存储每层叶子结点数量
+void preOrder(gg root, gg depth) {
+    if (ans.size() <= depth) {
+        ans.push_back(0);
+    }
+    if (tree[root].empty()) {  //是叶结点，增加对应层次上叶子结点数量
+        ++ans[depth];
+    }
+    for (auto i : tree[root]) {
+        preOrder(i, depth + 1);
+    }
 }
-int main(){
-    scanf("%d%d",&N,&M);
-    while(M--){
-        int id,k;
-        scanf("%d%d",&id,&k);
-        while(k--){
-            int iid;
-            scanf("%d",&iid);
-            tree[id].push_back(iid);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cin >> ni >> mi;
+    gg id1, id2;
+    while (mi--) {
+        cin >> id1 >> ki;
+        while (ki--) {
+            cin >> id2;
+            tree[id1].push_back(id2);
         }
     }
-    DFS(1,0);
-    for(int i=0;i<=maxLevel;++i)//输出每层叶子节点数
-        printf("%s%d",i==0?"":" ",leaveNumOfLevel[i]);
+    preOrder(1, 0);
+    for (int i = 0; i < ans.size(); ++i) {
+        cout << (i == 0 ? "" : " ") << ans[i];
+    }
+    return 0;
+}
+//使用BFS
+#include <bits/stdc++.h>
+using namespace std;
+using gg = long long;
+vector<vector<gg>> tree(105);
+gg ni, mi, ki;
+void levelOrder(gg root) {
+    queue<gg> q;
+    q.push(root);
+    bool space = false;  //标志是否输出空格
+    while (not q.empty()) {
+        gg s = q.size(), ans = 0;
+        while (s--) {
+            auto i = q.front();
+            q.pop();
+            if (tree[i].empty()) {  //是叶子结点
+                ++ans;
+            }
+            for (auto j : tree[i]) {
+                q.push(j);
+            }
+        }
+        cout << (space ? " " : "") << ans;
+        space = true;
+    }
+}
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cin >> ni >> mi;
+    gg id1, id2;
+    while (mi--) {
+        cin >> id1 >> ki;
+        while (ki--) {
+            cin >> id2;
+            tree[id1].push_back(id2);
+        }
+    }
+    levelOrder(1);
     return 0;
 }
