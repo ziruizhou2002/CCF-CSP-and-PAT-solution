@@ -2,7 +2,7 @@
 using namespace std;
 using gg = long long;
 void getPostFromPreIn(vector<gg>& pre, vector<gg>& in, gg r, gg left, gg right) {
-    if (left > right)  //序列为空，返回空指针
+    if (left > right)  //序列为空，直接返回
         return;
     gg i = find(in.begin(), in.end(), pre[r]) - in.begin();
     getPostFromPreIn(pre, in, r + 1, left, i - 1);  //递归遍历左子树
