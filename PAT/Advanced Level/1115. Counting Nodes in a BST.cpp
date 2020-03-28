@@ -1,39 +1,43 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct Node{
-    int data;
-    Node*left=nullptr,*right=nullptr;
-    Node(int d):data(d){}
+using gg = long long;
+vector<gg> level;
+struct BTNode {
+    gg val;
+    BTNode *left, *right;
+    BTNode(gg v, BTNode* l = nullptr, BTNode* r = nullptr) :
+        val(v), left(l), right(r) {}
 };
-int levelNum[1000],maxLevel=-1;//每层结点个数、最大层数
-void insert(Node*&root,int data){//向二叉查找树插入节点
-    if(root==nullptr){//节点为空
-        root=new Node(data);//新建结点
-        return;//直接返回
+void insertElement(BTNode*& root, gg x) {
+    if (not root) {  //根结点为空，新建一个结点
+        root = new BTNode(x);
+    } else if (x <= root->val) {  //向左子树中插入
+        insertElement(root->left, x);
+    } else {  //向右子树中插入
+        insertElement(root->right, x);
     }
-    if(data<=root->data)//data值比结点值小或相等
-        insert(root->left,data);//向左子树插入
-    else//data值比结点值大
-        insert(root->right,data);//向右子树插入
 }
-void DFS(Node*r,int level){//DFS遍历
-    if(r==nullptr){//r为空
-        maxLevel=max(level,maxLevel);//更新最大层数
-        return;//直接返回
-    }
-    ++levelNum[level];//递增该层结点个数
-    DFS(r->left,level+1);//遍历左子树
-    DFS(r->right,level+1);//遍历右子树
+void preOrder(BTNode* root, gg depth) {
+    if (not root)
+        return;
+    if (level.size() <= depth)
+        level.push_back(0);
+    ++level[depth];
+    preOrder(root->left, depth + 1);
+    preOrder(root->right, depth + 1);
 }
-int main(){
-    int N,a;
-    scanf("%d",&N);
-    Node*root=nullptr;
-    while(N--){
-        scanf("%d",&a);
-        insert(root,a);
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    BTNode* root = nullptr;
+    gg ni, ai;
+    cin >> ni;
+    while (ni--) {
+        cin >> ai;
+        insertElement(root, ai);
     }
-    DFS(root,0);
-    printf("%d + %d = %d",levelNum[maxLevel-1],levelNum[maxLevel-2],levelNum[maxLevel-1]+levelNum[maxLevel-2]);
+    preOrder(root, 0);
+    gg k1 = level.back(), k2 = level.size() > 1 ? level[level.size() - 2] : 0;
+    cout << k1 << " + " << k2 << " = " << (k1 + k2);
     return 0;
 }

@@ -1,35 +1,33 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-vector<int>pre,in,post;//先根、中根、后根遍历序列
-void postOrder(int root,int left,int right){//得出后根遍历序列
-    if(left>right)
+using gg = long long;
+void getPostFromPreIn(vector<gg>& pre, vector<gg>& in, gg r, gg left, gg right) {
+    if (left > right)  //序列为空，返回空指针
         return;
-    int i=left;
-    while(in[i]!=pre[root])//找到根节点在中根遍历序列中的位置
-        ++i;
-    postOrder(root+1,left,i-1);//递归遍历左子树
-    postOrder(root+1+i-left,i+1,right);//递归遍历右子树
-    post.push_back(pre[root]);//将根节点加入后根遍历序列
+    gg i = find(in.begin(), in.end(), pre[r]) - in.begin();
+    getPostFromPreIn(pre, in, r + 1, left, i - 1);  //递归遍历左子树
+    getPostFromPreIn(pre, in, r + 1 + i - left, i + 1, right);  //递归遍历右子树
+    cout << pre[r] << (r == 0 ? "" : " ");  // r==0时为整棵树的根结点，后面不能有空格
 }
-int main(){
-    int N;
-    scanf("%d",&N);
-    stack<int>s;
-    char temp[5];
-    for(int i=0;i<2*N;++i){
-        scanf("\n%s",temp);//读取字符串
-        if(strcmp(temp,"Push")==0){//是压栈
-            int a;
-            scanf("%d",&a);
-            pre.push_back(a);//当前数字是先根遍历序列
-            s.push(a);//压栈
-        }else{
-            in.push_back(s.top());//栈首元素是中根遍历序列
-            s.pop();//出栈
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    gg ni, ai;
+    cin >> ni;
+    string si;
+    stack<gg> st;
+    vector<gg> pre, in;
+    for (gg i = 0; i < 2 * ni; ++i) {
+        cin >> si;
+        if (si == "Push") {
+            cin >> ai;
+            st.push(ai);
+            pre.push_back(ai);
+        } else {
+            in.push_back(st.top());
+            st.pop();
         }
     }
-    postOrder(0,0,in.size()-1);//得出后根遍历序列
-    for(int i=0;i<post.size();++i)//输出
-        printf("%s%d",i>0?" ":"",post[i]);
+    getPostFromPreIn(pre, in, 0, 0, in.size() - 1);
     return 0;
 }
