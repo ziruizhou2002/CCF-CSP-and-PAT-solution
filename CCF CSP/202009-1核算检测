@@ -1,0 +1,41 @@
+#include <iostream>
+#include<cmath>
+#include<math.h>
+#include<algorithm>
+#define N 200
+using namespace std;
+struct testpoint
+{
+    int num;
+    int x,y;
+    double d;
+};
+typedef struct testpoint test;
+bool cmp(test a,test b)
+{
+    if(a.d!=b.d)return a.d<b.d;
+    return a.num<b.num;
+}
+int main()
+{
+    int n,a,b;
+    cin>>n>>a>>b;
+    test testplace[N];
+    for(int i=0;i<n;i++)
+    {
+        cin>>testplace[i].x>>testplace[i].y;
+        testplace[i].num=i+1;
+      // cout<< testplace[i].num<<endl;
+    }
+    for(int j=0;j<n;j++)
+    {
+        testplace[j].d=sqrt(((testplace[j].x)-a)*((testplace[j].x)-a)+((testplace[j].y)-b)*((testplace[j].y)-b));
+        //cout<< testplace[j].d<<endl;
+    }
+    sort(testplace,testplace+n,cmp);
+    for(int t=0;t<3;t++)
+    {
+        cout<<testplace[t].num<<endl;
+    }
+    return 0;
+}
